@@ -19,6 +19,7 @@
       />
       <dices v-bind:dices="dices" />
       <popup-rule
+        v-bind:finalScore="finalScore"
         v-on:handleConfirm="handleConfirm"
         v-on:handleExit="handleExit"
         v-on:handleYes="handleYes"
@@ -61,7 +62,7 @@ export default {
           this.handleNo();
         } else {
           this.bet = true;
-          alert("oke");
+          // alert("Đánh cược với {{ finalScore / 3 }} hiện có");
           this.handleNo();
           scoreOld = scoreOld / 3;
           this.$set(this.scoresPlayer, activePlayer, scoreOld);

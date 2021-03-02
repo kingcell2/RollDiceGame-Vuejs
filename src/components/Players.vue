@@ -44,6 +44,7 @@ export default {
     scoresPlayer: { type: Array, default: () => [0, 0] },
     activePlayer: { type: Number, default: () => 0 },
     currentScore: { type: Number, default: () => 0 },
+    bet: { type: Boolean, default: () => false },
   },
   data() {
     return {};
@@ -51,7 +52,7 @@ export default {
   methods: {
     getNamePlayer(index) {
       var defaultName = "Player " + (index + 1);
-      console.log(index, defaultName, this.isWinner, this.activePlayer);
+      // console.log(index, defaultName, this.isWinner, this.activePlayer);
       if (this.activePlayer == index && this.isWinner) {
         defaultName = "Winner!";
       }

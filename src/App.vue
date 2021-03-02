@@ -14,11 +14,17 @@
         v-on:handleHollScore="handleHollScore"
         v-on:handleNewGame="handleNewGame"
         v-on:handleRollDice="handleRollDice"
+        v-on:handleRollSpecial="handleRollSpecial"
+        v-on:handleRollBet="handleRollBet"
       />
       <dices v-bind:dices="dices" />
       <popup-rule
         v-on:handleConfirm="handleConfirm"
+        v-on:handleExit="handleExit"
+        v-on:handleYes="handleYes"
+        v-on:handleNo="handleNo"
         v-bind:isOpenPopup="isOpenPopup"
+        v-bind:isOpenPopup_choice="isOpenPopup_choice"
       />
     </div>
   </div>
@@ -34,16 +40,36 @@ export default {
   data() {
     return {
       isOpenPopup: false,
+      isOpenPopup_choice: false,
       isPlaying: false,
       activePlayer: 0,
       scoresPlayer: [14, 30],
       dices: [3, 6],
       currentScore: 30,
-      finalScore: 20,
+      finalScore: 60,
+      bet: false,
     };
   },
 
   methods: {
+    handleYes() {
+      if (this.isPlaying) {
+        let { scoresPlayer, activePlayer } = this;
+        let scoreOld = scoresPlayer[activePlayer];
+        if (scoreOld < this.finalScore / 3) {
+          alert("Bạn không đủ điều kiện để đánh cược");
+          this.handleNo();
+        } else {
+          this.bet = true;
+          alert("oke");
+          this.handleNo();
+          scoreOld = scoreOld / 3;
+          this.$set(this.scoresPlayer, activePlayer, scoreOld);
+        }
+      }
+      // this.isOpenPopup_choice = true;
+      //Đánh cược điểm
+    },
     handleChangeFinalScore(e) {
       var number = parseInt(e.target.value);
       if (isNaN(number)) {
@@ -56,9 +82,6 @@ export default {
       if (this.isPlaying) {
         let { scoresPlayer, activePlayer, currentScore } = this;
         let scoreOld = scoresPlayer[activePlayer];
-        // let cloneScorePlayer = [...scoresPlayer];
-        // cloneScorePlayer[activePlayer] = scoreOld + currentScore;
-        // this.scoresPlayer = cloneScorePlayer;
         this.$set(this.scoresPlayer, activePlayer, scoreOld + currentScore);
 
         if (!this.isWinner) {
@@ -71,19 +94,65 @@ export default {
     nextPlayers() {
       this.activePlayer = this.activePlayer === 0 ? 1 : 0;
       this.currentScore = 0;
+      this.bet = this.bet === true ? false : true;
     },
     handleConfirm() {
       this.isPlaying = true;
       this.isOpenPopup = false;
+      this.isOpenPopup_choice = false;
       this.activePlayer = 0;
       this.dices = [1, 1];
       this.scoresPlayer = [0, 0];
       this.currentScore = 0;
     },
+
     handleNewGame() {
       //Hien thi popup -> show luat choi
       this.isOpenPopup = true;
+      // this.isOpenPopup_choice = true;
     },
+
+    handleExit() {
+      //Hien thi popup -> dong luat choi
+      this.isOpenPopup = false;
+    },
+    handleRollBet() {
+      console.log(this.bet);
+      console.log(this.isPlaying);
+      if (this.bet && this.isPlaying) {
+        var dice1 = Math.floor(Math.random() * 6) + 1;
+        var dice2 = Math.floor(Math.random() * 6) + 1;
+        this.dices = [dice1, dice2];
+        if (dice1 == 1 || dice2 == 1) {
+          //đổi lượt chơi
+          let activePlayer = this.activePlayer;
+          setTimeout(function () {
+            alert(
+              `Người chơi Player ${
+                activePlayer + 1
+              } đã quay trúng ô số 1, rất tiếc! `
+            );
+          }, 20);
+
+          this.nextPlayers();
+        } else {
+          this.currentScore = this.currentScore + (dice1 + dice2) * 3;
+        }
+      } else {
+        alert("Vui lòng ấn vào nút NewGame");
+      }
+    },
+    handleRollSpecial() {
+      if (this.isPlaying) {
+        this.isOpenPopup_choice = true;
+      } else {
+        alert("Vui lòng ấn vào nút Bet để đánh cược");
+      }
+    },
+    handleNo() {
+      this.isOpenPopup_choice = false;
+    },
+
     handleRollDice() {
       // console.log("rolldice app.vue");
       if (this.isPlaying) {

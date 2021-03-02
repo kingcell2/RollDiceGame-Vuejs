@@ -3,8 +3,14 @@
     <button v-on:click="newGame" class="control btn-new">
       <i class="ion-ios-plus-outline"></i>New game
     </button>
+    <button v-on:click="rollSpecial" class="control btn-bet">
+      <i class="ion-alert-circled"></i>Bet
+    </button>
     <button v-on:click="rollDice" class="control btn-roll">
       <i class="ion-ios-loop"></i>Roll dice
+    </button>
+    <button v-on:click="rollBet" class="control btn-special-roll">
+      <i class="ion-pinpoint"></i>Bet Roll
     </button>
     <button v-on:click="hollScore" class="control btn-hold">
       <i class="ion-ios-download-outline"></i>Hold
@@ -38,6 +44,12 @@ export default {
     //     },
     newGame() {
       this.$emit("handleNewGame");
+    },
+    rollSpecial() {
+      this.$emit("handleRollSpecial");
+    },
+    rollBet() {
+      this.$emit("handleRollBet");
     },
     rollDice() {
       // console.log("roll dice controls");
@@ -93,13 +105,19 @@ export default {
 }
 
 .btn-new {
-  top: 45px;
+  top: 25px;
+}
+.btn-bet {
+  top: 65px;
 }
 .btn-roll {
-  top: 403px;
+  top: 383px;
+}
+.btn-special-roll {
+  top: 433px;
 }
 .btn-hold {
-  top: 467px;
+  top: 477px;
 }
 
 .final-score {

@@ -19,7 +19,6 @@
             <li class="notice">Đánh Cược (BET)</li>
             <li>1. Đánh cược bằng 1/3 số điểm đạt được để chiến thắng</li>
             <li>2. Điểm số sẽ được nhân 3</li>
-            <li>3. Mỗi người chơi chỉ được đánh cược 1 lần duy nhất</li>
           </ul>
           <ul class="right">
             <li class="notice">Lưu ý</li>

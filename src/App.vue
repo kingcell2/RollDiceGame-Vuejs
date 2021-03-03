@@ -63,6 +63,7 @@ export default {
           this.handleNo();
         } else {
           this.bet = true;
+          this.currentBet = 1;
           // alert("Đánh cược với {{ finalScore / 3 }} hiện có");
           this.handleNo();
           scoreOld = scoreOld / 3;
@@ -97,6 +98,7 @@ export default {
       this.activePlayer = this.activePlayer === 0 ? 1 : 0;
       this.currentScore = 0;
       this.bet = false;
+      // this.currentBet[this.activePlayer] = this.currentBet;
     },
     handleConfirm() {
       this.isPlaying = true;

@@ -8,6 +8,7 @@
         v-bind:currentScore="currentScore"
       />
       <controls
+        v-bind:bet="bet"
         v-bind:isPlaying="isPlaying"
         v-bind:finalScore="finalScore"
         v-on:handleChangeFinalScore="handleChangeFinalScore"
@@ -95,7 +96,7 @@ export default {
     nextPlayers() {
       this.activePlayer = this.activePlayer === 0 ? 1 : 0;
       this.currentScore = 0;
-      this.bet = this.bet === true ? false : true;
+      this.bet = false;
     },
     handleConfirm() {
       this.isPlaying = true;
@@ -118,8 +119,6 @@ export default {
       this.isOpenPopup = false;
     },
     handleRollBet() {
-      console.log(this.bet);
-      console.log(this.isPlaying);
       if (this.bet && this.isPlaying) {
         var dice1 = Math.floor(Math.random() * 6) + 1;
         var dice2 = Math.floor(Math.random() * 6) + 1;
@@ -140,7 +139,7 @@ export default {
           this.currentScore = this.currentScore + (dice1 + dice2) * 3;
         }
       } else {
-        alert("Vui lòng ấn vào nút NewGame");
+        alert("Vui lòng ấn vào nút Bet");
       }
     },
     handleRollSpecial() {

@@ -6,11 +6,17 @@
     <button v-on:click="rollSpecial" class="control btn-bet">
       <i class="ion-alert-circled"></i>Bet
     </button>
-    <button v-on:click="rollDice" class="control btn-roll">
+    <button v-if="!bet" v-on:click="rollDice" class="control btn-roll">
       <i class="ion-ios-loop"></i>Roll dice
     </button>
-    <button v-on:click="rollBet" class="control btn-special-roll">
+    <button v-else-if="bet" class="control btn-roll line" disabled>
+      <i class="ion-ios-loop"></i>Un Roll dice
+    </button>
+    <button v-if="bet" v-on:click="rollBet" class="control btn-special-roll">
       <i class="ion-pinpoint"></i>Bet Roll
+    </button>
+    <button v-else-if="!bet" class="control btn-special-roll line" disabled>
+      <i class="ion-pinpoint"></i>Un Bet Roll
     </button>
     <button v-on:click="hollScore" class="control btn-hold">
       <i class="ion-ios-download-outline"></i>Hold
@@ -32,6 +38,7 @@ export default {
   props: {
     finalScore: { type: Number, default: () => 100 },
     isPlaying: { type: Boolean, default: () => false },
+    bet: { type: Boolean, default: () => false },
   },
   data() {
     return {
@@ -63,6 +70,9 @@ export default {
 </script>
 
 <style>
+.line {
+  text-decoration: line-through;
+}
 .control {
   position: absolute;
   width: 200px;
@@ -114,10 +124,10 @@ export default {
   top: 383px;
 }
 .btn-special-roll {
-  top: 433px;
+  top: 477px;
 }
 .btn-hold {
-  top: 477px;
+  top: 430px;
 }
 
 .final-score {

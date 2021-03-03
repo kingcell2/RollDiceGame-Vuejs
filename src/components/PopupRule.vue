@@ -16,9 +16,10 @@
             <li>1. Nhấn vào ROLL DICE để xoay xúc xắc</li>
             <li>2. Điểm chơi là số điểm trên xúc xắc sẽ được cộng lại</li>
             <li>3. Người đạt đến điểm tối đa trước là người chiến thắng</li>
-            <li class="notice">Đánh Cược</li>
+            <li class="notice">Đánh Cược (BET)</li>
             <li>1. Đánh cược bằng 1/3 số điểm đạt được để chiến thắng</li>
             <li>2. Điểm số sẽ được nhân 3</li>
+            <li>3. Mỗi người chơi chỉ được đánh cược 1 lần duy nhất</li>
           </ul>
           <ul class="right">
             <li class="notice">Lưu ý</li>
@@ -31,7 +32,7 @@
             <li>4. Khi đánh cược sẽ bị mất số điểm tương ứng</li>
           </ul>
         </div>
-        <button class="button confirm" @click="confirm">Đã hiểu</button>
+        <button class="button confirm ml-30" @click="confirm">Đã hiểu</button>
         <button class="button exit" @click="exit">Hủy</button>
       </div>
     </div>
@@ -99,6 +100,7 @@ ul li.notice {
   font-size: 18px;
   color: #333;
   font-weight: 700;
+  text-transform: uppercase;
 }
 .wraper-popup {
   position: fixed;
@@ -114,9 +116,8 @@ ul li.notice {
 .choice {
   background: rgb(212, 199, 199);
   position: absolute;
-  width: 245px;
+  width: 260px;
   height: 170px;
-  overflow: auto;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(1.2);
@@ -140,7 +141,7 @@ ul li.notice {
   width: 48%;
 }
 .right {
-  width: 52%;
+  width: 48%;
 }
 .rule {
   background: white;
@@ -164,12 +165,14 @@ ul li.notice {
   transition: all 0.3s;
   border-radius: 3px;
 }
+.ml-30 {
+  margin-left: 30%;
+}
 .confirm {
   background: #333;
   border: 1px solid #333;
   color: white;
   opacity: 0.8;
-  margin-left: 30%;
 }
 .exit {
   background: rgb(224, 33, 33);
